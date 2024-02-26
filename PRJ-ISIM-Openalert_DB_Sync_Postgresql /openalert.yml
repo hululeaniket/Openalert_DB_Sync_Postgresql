@@ -1,0 +1,6 @@
+---
+- name: Running the master playbook for Openalert DB Sync Postgresql Unix.
+  hosts: "{{Server_name}}"
+  gather_facts: false
+  roles:
+    - rol-capg-openalert_DB_Sync_Postgresql

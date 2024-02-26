@@ -1,0 +1,27 @@
+- name: Go root with calife
+  command: calife
+  ignore_errors: yes
+  
+- name: Switch to PostgreSQL admin account
+  command: su - {{postgre_account}}
+  ignore_errors: yes
+
+- name: Locate in the exploit folder
+  command: cd $HOME/DBA/EXPLOIT
+  ignore_errors: yes
+
+- name: Launch check script
+  command: ./TestSyncStandby.sh {{ID_INSTANCE_DB}}
+  register: script_output
+  ignore_errors: yes
+
+- name: Display result based on script_output
+  debug:
+    msg: "{{ 'STANDBY OK' if script_output.stdout == 'STANDBY OK' else 'STANDBY KO' }}"
+  when: script_output is defined
+
+- name: Display AUTO-REMEDIATION ERROR if any error occurs
+  debug:
+    msg: "AUTO-REMEDIATION ERROR"
+  when: script_output is failed or script_output is skipped
+  
