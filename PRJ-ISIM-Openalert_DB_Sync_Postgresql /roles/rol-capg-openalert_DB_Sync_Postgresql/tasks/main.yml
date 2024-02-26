@@ -3,7 +3,7 @@
   ignore_errors: yes
   
 - name: Switch to PostgreSQL admin account
-  command: su - {{postgre_account}}
+  command: su - "{{postgre_account}}"
   ignore_errors: yes
 
 - name: Locate in the exploit folder
@@ -11,7 +11,7 @@
   ignore_errors: yes
 
 - name: Launch check script
-  command: ./TestSyncStandby.sh {{ID_INSTANCE_DB}}
+  command: ./TestSyncStandby.sh "{{ID_INSTANCE_DB}}"
   register: script_output
   ignore_errors: yes
 
